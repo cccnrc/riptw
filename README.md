@@ -1,4 +1,4 @@
-`riptw` is a very versatile R package that easily allows Inverse Probability of Treatment Weighting (IPTW) analysis on R
+`riptw` is an R package that easily allows Inverse Probability of Treatment Weighting (IPTW) analysis
 
 # Install riptw
 Installing `riptw` is as simple as:
@@ -12,7 +12,7 @@ remotes::install_github(
 ```
 If you know a bit of R code (no worries, you don't really need to) you noticed that it only requires [devtools](https://devtools.r-lib.org/) and [BiocManager](https://cran.r-project.org/web/packages/BiocManager/vignettes/BiocManager.html).
 
-The rest of dependencies you need will be installed directly with `riptw`: that's why installation will probably take a while (but you need to perform it only once :wink:)
+The rest of dependencies you need will be installed directly with `riptw`, that's why installation will probably take a while (but you need to perform it only once :wink:)
 
 # Run riptw
 Let's try how simple is to use `riptw` on the R built-in dataset [quakes](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/quakes) which comes along R by default
@@ -30,9 +30,9 @@ IPTW <- riptw( data = quakes,
                 covariates = c( 'lat', 'long', 'depth', 'mag', 'stations' ) )
 IPTW$plot
 ```
-That's all! You now have your IPTW adjusted covariates in the IPTW object.
+_That's all!_ You now have your `IPTW` adjusted covariates in the IPTW object.
 
-`IPTW` is the object returned by `riptw()` function, and it is composed of 4 parts:
+`IPTW` (in the example above) is the object returned by `riptw()` function, and it is composed of 4 parts:
 - *data*: the input database with some new columns:
     - Propensity Score for each treatment variable group (each column starts with `PS_` and is followed by the group name)
     - Inverse Probability of Treatment Weighting (`iptw`) for each sample based on its treatment group
