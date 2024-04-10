@@ -17,11 +17,10 @@ Now let's have a look at our package!
 Installing `riptw` is as simple as:
 ```
 if (!require("devtools")) install.packages("devtools")
-if (!require("BiocManager")) install.packages("BiocManager")
 
-remotes::install_github( "cccnrc/riptw", repos = BiocManager::repositories() )
+remotes::install_github( "cccnrc/riptw" )
 ```
-If you know a bit of R code (no worries, you don't really need to) you noticed that it only requires [devtools](https://devtools.r-lib.org/) and [BiocManager](https://cran.r-project.org/web/packages/BiocManager/vignettes/BiocManager.html).
+If you know a bit of R code (no worries, you don't really need to) you noticed that it only requires [devtools](https://devtools.r-lib.org/).
 
 The rest of dependencies you need will be installed directly with `riptw`, that's why installation will probably take a while (but you need to perform it only once :wink:)
 
