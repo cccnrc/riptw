@@ -10,4 +10,9 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports:
-  VGAM (>= 1.1.9)
+  VGAM (>= 1.1.9),
+  tableone (>= 0.13.2),
+  survey (>= 4.2.1),
+  rms (>= 6.7.1),
+  reshape2 (>= 1.4.4),
+  ggplot2 (>= 3.5.0)
