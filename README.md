@@ -52,3 +52,14 @@ _That's all!_ You now have your `IPTW` adjusted covariates in the IPTW object.
 - *plot*: this is a graphical representation of how normalized IPTW is able to reduce each covariate effect on the treatment variable. Standardised Mean Difference (SMD) for each variable stratification with treatment groups are used for comparison, ***adjusted*** SMD are represented as a continuous line and ***unadjusted*** SMD as a dotted line. The red vertical bar at 0.1 represent the cutoff which is normally used to determine if the variable significantly stratificates with the group, thus if a covariate is significantly influencing treatment variable. Here an example from the code above which shows how we nullify `stations`, `mag` and `lat` potential bias through IPTW adjustment:
 ![riptw() SMD reduction plot](plots/smd0.png)
 *Please Note*: your plot might look different if you try the code above as we are assigning `quakes$treatment` values randomly with [sample()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample) function
+
+# Use riptw results
+Now you can simply use your `sw` column weights to correct regression or survival analysis in which you want to eliminate possible confounding factors and analyze actual effect of your treatment variable!
+
+You will find plenty of examples of how to perform weighted regression or survival analysis on the internet!
+
+# Customize riptw
+`riptw` allows for a lot of more detailed analysis, such as implementing Restricted Cubic Spline transformation of your continuous variables to account for possible non-linear effects, and much more customization. Take a look at:
+```
+?riptw
+```
