@@ -1,9 +1,9 @@
 `riptw` is an R package that easily allows Inverse Probability of Treatment Weighting (IPTW) analysis
 
 # Inverse Probability of Treatment Weighting (IPTW)
-IPTW is a statistical method used to estimate ***causal effects of a specific variable*** where randomized controlled trials are impractical or unethical. IPTW was originally developed for better estimation of actual treatment effect in medical studies, thus the variable of interest is normally referred to as ***"treatment"*** variable.
+IPTW is a statistical method used to estimate ***causal effects of a specific variable*** where randomized controlled trials are impractical or unethical. IPTW was originally developed for better estimation of actual treatment effect in cancer studies, thus the variable of interest is normally indicated as ***"treatment"*** variable.  Today, IPTW has gained widespread adoption, extending its utility beyond oncology to various fields within medical research and other scientific disciplines.
 
-IPTW creates a pseudo-population by balancing covariates across a specific treatment variable groups, thus nullifying potential confounding bias. This technique involves assigning weights to each subject based on the inverse probability of receiving their actual treatment, conditional on covariates. The resulting weights are then applied in further analyses, such as regression models or survival analysis, to estimate actual treatment effects, free of covariates influence.
+Briefly, IPTW creates a pseudo-population by balancing covariates across a specific treatment variable groups, thus nullifying potential confounding bias. This technique involves assigning weights to each subject based on the inverse probability of receiving their actual treatment, conditional on covariates. The resulting weights are then applied in further analyses, such as regression models or survival analysis, to estimate actual treatment effects, free of covariates influence.
 
 Key Advantages of IPTW:
 - *Minimizes Confounding*: Enhances causal inference in observational data by balancing covariates across groups.
