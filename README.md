@@ -11,6 +11,8 @@ Key Advantages of IPTW:
 - *Mitigates Selection Bias*: Particularly useful for non-random treatment assignments.
 - *Improves Comparability*: Strengthens the validity of treatment-control comparisons.
 
+Now let's have a look at our package!
+
 # Install riptw
 Installing `riptw` is as simple as:
 ```
