@@ -1,9 +1,9 @@
 `riptw` is an R package that easily allows Inverse Probability of Treatment Weighting (IPTW) analysis
 
 # Inverse Probability of Treatment Weighting (IPTW)
-IPTW is a statistical method used to estimate ***causal effects of a specific variable*** where randomized controlled trials are impractical or unethical. IPTW was originally developed for  IPTW creates a pseudo-population by balancing covariates across a specific treatment variable groups, thus nullifying potential confounding bias.
+IPTW is a statistical method used to estimate ***causal effects of a specific variable*** where randomized controlled trials are impractical or unethical. IPTW was originally developed for better estimation of actual treatment effect in medical studies, thus the variable of interest is normally referred to as ***"treatment"*** variable.
 
-This technique involves assigning weights to each subject based on the inverse probability of receiving their actual treatment, conditional on covariates. The resulting weights are then applied in further analyses, such as regression models or survival analysis, to estimate actual treatment effects, free of covariates influence.
+IPTW creates a pseudo-population by balancing covariates across a specific treatment variable groups, thus nullifying potential confounding bias. This technique involves assigning weights to each subject based on the inverse probability of receiving their actual treatment, conditional on covariates. The resulting weights are then applied in further analyses, such as regression models or survival analysis, to estimate actual treatment effects, free of covariates influence.
 
 Key Advantages of IPTW:
 - *Minimizes Confounding*: Enhances causal inference in observational data by balancing covariates across groups.
