@@ -45,8 +45,8 @@ _That's all!_ You now have your `IPTW` adjusted covariates in the IPTW object.
 `IPTW` (in the example above) is the object returned by `riptw()` function, and it is composed of 4 parts, that you can access through `IPTW$data` or `IPTW$plot` etc:
 - *data*: the input database with some new columns:
     - Propensity Score for each treatment variable group (each column starts with `PS_` and is followed by the group name)
-    - Inverse Probability of Treatment Weighting (`iptw`) for each sample based on its treatment group
-    - Standardised Weights (`sw`): this is <u>what you are really interested in</u>, your dataset [weights](https://www.statology.org/weighted-least-squares-in-r/) to be used in regressions or other analysis you want to operate
+    - Inverse Probability of Treatment Weighting (`iptw` column) for each sample based on its treatment group
+    - Standardised Weights (`sw` column): this is _what you are really interested in_, your dataset [weights](https://www.statology.org/weighted-least-squares-in-r/) to be used in regressions or other analysis you want to operate
 - *unadjusted*: covariates stratification table before IPTW-adjustment
 - *adjusted*: covariates stratification table after IPTW-adjustment
 - *plot*: this is a graphical representation of how normalized IPTW is able to reduce each covariate effect on the treatment variable. Standardised Mean Difference (SMD) for each variable stratification with treatment groups are used for comparison, ***adjusted*** SMD are represented as a continuous line and ***unadjusted*** SMD as a dotted line. The red vertical bar at 0.1 represent the cutoff which is normally used to determine if the variable significantly stratificates with the group, thus is a covariate significantly influencing treatment variable. Here an example from the code above:
