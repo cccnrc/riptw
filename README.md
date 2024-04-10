@@ -1,14 +1,23 @@
 `riptw` is an R package that easily allows Inverse Probability of Treatment Weighting (IPTW) analysis
 
+# Inverse Probability of Treatment Weighting (IPTW)
+IPTW is a statistical method used to estimate ***causal effects of a specific variable*** where randomized controlled trials are impractical or unethical. IPTW was originally developed for  IPTW creates a pseudo-population by balancing covariates across a specific treatment variable groups, thus nullifying potential confounding bias.
+
+This technique involves assigning weights to each subject based on the inverse probability of receiving their actual treatment, conditional on covariates. The resulting weights are then applied in further analyses, such as regression models or survival analysis, to estimate actual treatment effects, free of covariates influence.
+
+Key Advantages of IPTW:
+- *Minimizes Confounding*: Enhances causal inference in observational data by balancing covariates across groups.
+- *Versatile*: Applicable across various settings and compatible with different statistical analyses.
+- *Mitigates Selection Bias*: Particularly useful for non-random treatment assignments.
+- *Improves Comparability*: Strengthens the validity of treatment-control comparisons.
+
 # Install riptw
 Installing `riptw` is as simple as:
 ```
 if (!require("devtools")) install.packages("devtools")
 if (!require("BiocManager")) install.packages("BiocManager")
-remotes::install_github(
-    "cccnrc/riptw",
-    repos = BiocManager::repositories()
-)
+
+remotes::install_github( "cccnrc/riptw", repos = BiocManager::repositories() )
 ```
 If you know a bit of R code (no worries, you don't really need to) you noticed that it only requires [devtools](https://devtools.r-lib.org/) and [BiocManager](https://cran.r-project.org/web/packages/BiocManager/vignettes/BiocManager.html).
 
@@ -28,11 +37,10 @@ quakes$treatment <- sample( c( rep( 0, nrow(quakes)/8*6 ), rep( 1, nrow(quakes)/
 IPTW <- riptw( data = quakes,
                 outcome = 'treatment',
                 covariates = c( 'lat', 'long', 'depth', 'mag', 'stations' ) )
-IPTW$plot
 ```
 _That's all!_ You now have your `IPTW` adjusted covariates in the IPTW object.
 
-`IPTW` (in the example above) is the object returned by `riptw()` function, and it is composed of 4 parts:
+`IPTW` (in the example above) is the object returned by `riptw()` function, and it is composed of 4 parts, that you can access through `IPTW$data` or `IPTW$plot` etc:
 - *data*: the input database with some new columns:
     - Propensity Score for each treatment variable group (each column starts with `PS_` and is followed by the group name)
     - Inverse Probability of Treatment Weighting (`iptw`) for each sample based on its treatment group
