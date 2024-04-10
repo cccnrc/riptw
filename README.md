@@ -56,7 +56,12 @@ _That's all!_ You now have your `IPTW` adjusted covariates in the IPTW object.
 # Use riptw results
 Now you can simply use your `sw` column weights to correct regression or survival analysis in which you want to eliminate possible confounding factors and analyze actual effect of your treatment variable!
 
-You will find plenty of examples of how to perform weighted regression or survival analysis on the internet!
+You will simply need to analyze outcome and treatment variable on a weighted model, without further need of including any covariate! :wink:
+
+You will find plenty of examples of how to perform weighted regression or survival analysis on the internet! Just as example, if your outcome of interest is binary:
+```
+glm( outcome ~ treatment, family=binomial, data=IPTW$data, weights=sw)
+```
 
 # Customize riptw
 `riptw` allows for a lot of more detailed analysis, such as implementing Restricted Cubic Spline transformation of your continuous variables to account for possible non-linear effects, and much more customization. Take a look at:
