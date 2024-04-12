@@ -35,11 +35,12 @@ quakes <- datasets::quakes
 ### create a fake categorical variable "treatment" to normalize covariates on
 quakes$treatment <- sample( c( rep( 0, nrow(quakes)/8*6 ), rep( 1, nrow(quakes)/8*2 ) ))
 
-IPTW <- riptw( data = quakes,
-                outcome = 'treatment',
-                covariates = c( 'lat', 'long', 'depth', 'mag', 'stations' ) )
+IPTW <- riptw( data = quakes, formula = 'treatment ~ lat + long + depth + mag + stations' )
 ```
 _That's all!_ You now have your `IPTW` adjusted covariates in the IPTW object.
+
+`riptw` will also check all the variables you passed and print out the type (numeric vs. categorical) you have stored in your data.
+Be sure to correct if some `factor` are stored as `numeric` in your data!
 
 `IPTW` (in the example above) is the object returned by `riptw()` function, and it is composed of 4 parts, that you can access through `IPTW$data` or `IPTW$plot` etc:
 - *data*: the input database with some new columns:

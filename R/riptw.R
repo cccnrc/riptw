@@ -53,6 +53,10 @@ riptw <- function( data,
                                   rcs_covariate = rcs_covariate,
                                   rcs_df = rcs_df )
   } else {
+    ### convert to formula object if it is not
+    if ( ! rlang::is_formula( formula ) ) {
+      formula <- as.formula( formula )
+    }
     ### check if it passed some rcs() to convert it to rms::rcs()
     if ( ! any( grepl( 'rms::rcs', formula, fixed = TRUE)) ) {
       if ( any( grepl( 'rcs(', formula, fixed = TRUE )) ) {
