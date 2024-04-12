@@ -18,6 +18,7 @@
 #' @param rcs_df: if rcs_covariate is specified the degrees of freedom to use for RCS transformation (optional, default: 5)
 #' @param ps_prefix: the propensity score columns prefix to use for the output data.frame (default: "PS_")
 #' @param stdout: print summaries for each function to stdout (default: FALSE)
+#' @param stdout_cov: print summaries for each variable passed (default: TRUE)
 #' @param model_family: the family of regression to be used in vglm (default: "multinomial")
 #' @param iptw: the name of the added column with IPTW values in output data.frame (default: "iptw")
 #' @param round_norm: if stdout = TRUE selected, the number of decimal inputs to round the normalize_IPTW() stdout (default: 2)
@@ -36,6 +37,7 @@ riptw <- function( data,
                   rcs_df = 5,
                   ps_prefix = "PS_",
                   stdout = FALSE,
+                  stdout_cov = TRUE,
                   model_family = VGAM::multinomial(parallel = FALSE),
                   iptw = 'iptw',
                   round_norm = 2,
@@ -51,8 +53,23 @@ riptw <- function( data,
                                   rcs_covariate = rcs_covariate,
                                   rcs_df = rcs_df )
   } else {
-    model_formula <- formula
+    ### check if it passed some rcs() to convert it to rms::rcs()
+    if ( ! any( grepl( 'rms::rcs', formula, fixed = TRUE)) ) {
+      if ( any( grepl( 'rcs(', formula, fixed = TRUE )) ) {
+        formula_rcs <- gsub( "rcs\\(", "rms::rcs\\(", formula )
+        model_formula <- as.formula(paste( formula_rcs[2], formula_rcs[1], formula_rcs[3], sep = ' ' ))
+      } else {
+        model_formula <- formula
+      }
+    } else {
+      model_formula <- formula
+    }
+    model_formula_splitted <- split_formula( model_formula )
+    outcome <- model_formula_splitted[['outcome']]
+    covariates <- model_formula_splitted[['covariates']]
   }
+  ### check covariates in data
+  check_covariates( data = data, covariates = c( outcome, covariates ), stdout = stdout_cov )
   ### add propensity score column to the original database
   data_ps <- add_PS( data = data,
                       formula = model_formula,
