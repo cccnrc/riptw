@@ -35,6 +35,7 @@ quakes <- datasets::quakes
 ### create a fake categorical variable "treatment" to normalize covariates on
 quakes$treatment <- sample( c( rep( 0, nrow(quakes)/8*6 ), rep( 1, nrow(quakes)/8*2 ) ))
 
+### specify the treatment variable and the covariates you want to normalize with IPTW
 IPTW <- riptw( data = quakes, formula = 'treatment ~ lat + long + depth + mag + stations' )
 ```
 _That's all!_ You now have your `IPTW` adjusted covariates in the IPTW object.
