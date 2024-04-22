@@ -14,6 +14,7 @@ riptw(
   rcs_df = 5,
   ps_prefix = "PS_",
   stdout = FALSE,
+  stdout_cov = TRUE,
   model_family = VGAM::multinomial(parallel = FALSE),
   iptw = "iptw",
   round_norm = 2,
@@ -40,6 +41,8 @@ riptw(
 \item{ps_prefix:}{the propensity score columns prefix to use for the output data.frame (default: "PS_")}
 
 \item{stdout:}{print summaries for each function to stdout (default: FALSE)}
+
+\item{stdout_cov:}{print summaries for each variable passed (default: TRUE)}
 
 \item{model_family:}{the family of regression to be used in vglm (default: "multinomial")}
 

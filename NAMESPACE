@@ -2,4 +2,6 @@
 
 export(get_formula)
 export(iptw_tables)
+export(numeric_variable_summary)
 export(riptw)
+export(split_formula)

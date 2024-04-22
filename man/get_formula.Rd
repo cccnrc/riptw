@@ -4,7 +4,16 @@
 \alias{get_formula}
 \title{Get formula to be passed to the model based on list of specified covariates and outcome}
 \usage{
-get_formula(outcome, covariates, rcs_covariate = NULL, rcs_df = 5)
+get_formula(
+  outcome,
+  covariates,
+  rcs_covariate = NULL,
+  rcs_df = 5,
+  time_var = NULL,
+  time_var2 = NULL,
+  weights = NULL,
+  bayesian = FALSE
+)
 }
 \arguments{
 \item{outcome:}{the model outcome name (dependent variable)}

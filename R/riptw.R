@@ -26,6 +26,7 @@
 #' @param iptw: the name of the added column with IPTW values in output data.frame (default: "iptw")
 #' @param plot_font_family: the family to use as output plot font (default: sans-serif)
 #' @param plot_font_size: the size to use as output plot font (default: 18)
+#' @param convert: automatically converts characters and numeric with 0 and 1 to factors (default: FALSE)
 #' @return A list object with 'data': the original data.frame with PS, IPTW, and weights columns added for each sample - 'plot': the SMD reduction plot - 'unadjusted': the covariates stratification table (before IPTW-adjustment) - 'adjusted': the covariates stratification table (after IPTW-adjustment)
 #' @export
 riptw <- function( data,
@@ -43,7 +44,8 @@ riptw <- function( data,
                   round_norm = 2,
                   round_bc = 3,
                   plot_font_family = "sans-serif",
-                  plot_font_size = 18
+                  plot_font_size = 18,
+                  convert = FALSE
                  )
 {
   if ( is.null(formula) ) {
@@ -73,7 +75,13 @@ riptw <- function( data,
     covariates <- model_formula_splitted[['covariates']]
   }
   ### check covariates in data
-  check_covariates( data = data, covariates = c( outcome, covariates ), stdout = stdout_cov )
+  if ( base::isTRUE( convert ) ) {
+    data <- check_covariates( data = data, covariates = c( outcome, covariates ), stdout = stdout_cov, convert = convert )
+    base::cat( '\n------------------------------------> After Conversion <------------------------------------\n' )
+    data_null <- check_covariates( data = data, covariates = c( outcome, covariates ), stdout = stdout_cov, convert = convert )
+  } else {
+    data_null <- check_covariates( data = data, covariates = c( outcome, covariates ), stdout = stdout_cov, convert = convert )
+  }
   ### add propensity score column to the original database
   data_ps <- add_PS( data = data,
                       formula = model_formula,
