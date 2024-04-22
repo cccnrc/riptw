@@ -12,6 +12,8 @@ numeric_variable_summary(NUMERIC_VARIABLE_VECTOR)
 \item{covariates:}{the vector of variables to be analyzed}
 
 \item{stdout:}{print summaries for each variable passed (default: TRUE)}
+
+\item{convert:}{automatically converts characters and numeric with 0 and 1 to factors (default: FALSE)}
 }
 \value{
 A stdout value of each variable type (numeric vs. factor)

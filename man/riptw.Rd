@@ -20,7 +20,8 @@ riptw(
   round_norm = 2,
   round_bc = 3,
   plot_font_family = "sans-serif",
-  plot_font_size = 18
+  plot_font_size = 18,
+  convert = FALSE
 )
 }
 \arguments{
@@ -55,6 +56,8 @@ riptw(
 \item{plot_font_family:}{the family to use as output plot font (default: sans-serif)}
 
 \item{plot_font_size:}{the size to use as output plot font (default: 18)}
+
+\item{convert:}{automatically converts characters and numeric with 0 and 1 to factors (default: FALSE)}
 }
 \value{
 A list object with 'data': the original data.frame with PS, IPTW, and weights columns added for each sample - 'plot': the SMD reduction plot - 'unadjusted': the covariates stratification table (before IPTW-adjustment) - 'adjusted': the covariates stratification table (after IPTW-adjustment)

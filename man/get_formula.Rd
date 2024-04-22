@@ -12,11 +12,12 @@ get_formula(
   time_var = NULL,
   time_var2 = NULL,
   weights = NULL,
-  bayesian = FALSE
+  bayesian = FALSE,
+  string = FALSE
 )
 }
 \arguments{
-\item{outcome:}{the model outcome name (dependent variable)}
+\item{outcome:}{the model outcome name (dependent variable). If survival analysis ("time_var" specified) this is the event column}
 
 \item{covariates:}{vector of model covariate names}
 
