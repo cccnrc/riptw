@@ -6,6 +6,7 @@
 #'
 #' @param outcome: the model outcome name (dependent variable). If survival analysis ("time_var" specified) this is the event column
 #' @param covariates: vector of model covariate names
+#' @param random_covariate: the variable to be used as random effects (optional)
 #' @param rcs_covariate: the variable to be used as RCS (optional)
 #' @param rcs_df: if rcs_covariate is specified the degrees of freedom to use for RCS transformation (optional, default: 5)
 #' @return A as.formula() object to be passed to regression models
@@ -13,6 +14,7 @@
 get_formula <- function(
                   outcome,
                   covariates,
+                  random_covariates = NULL,
                   rcs_covariate = NULL,
                   rcs_df = 5,
                   time_var = NULL,
@@ -69,6 +71,21 @@ get_formula <- function(
       }
     }
   }
+  ### update random covariates if asked for
+  if ( ! base::is.null( random_covariates ) ) {
+    random_covariates_vector <- base::vector()
+    for ( rci in 1:length(random_covariates) )
+    {
+      if ( random_covariates[rci] %in% covariates ) {
+        random_index <- base::which( covariates == random_covariates[rci] )
+        covariates <- covariates[-random_index]
+      }
+      random_covariate_term <- base::paste( ' ( 1 |', random_covariates[rci], ' ) ', sep = '' )
+      random_covariates_vector <- c( random_covariates_vector, random_covariate_term )
+    }
+    covariates <- c( covariates, random_covariates_vector )
+  }
+  ### update RCS covariates (if asked)
   if ( base::is.null( rcs_covariate ) ) {
     model_formula <- stats::as.formula( base::paste( formula_outcome
                                 , base::paste( covariates, collapse='+' ) ) )
@@ -82,9 +99,12 @@ get_formula <- function(
           base::stop('rcs_df must be length 1 or same as rcs_covariate')
         }
       }
-      ### remove covariate to be inserted as RCS from the list of all covariates
-      rcs_index <- base::which( formula_covariates == rcs_covariate[i] )
-      formula_covariates <- formula_covariates[-rcs_index]
+      ### remove covariate to be inserted as RCS from the list of all covariates (if present)
+      if ( rcs_covariate[i] %in% formula_covariates ) {
+        rcs_index <- base::which( formula_covariates == rcs_covariate[i] )
+        formula_covariates <- formula_covariates[-rcs_index]
+      }
+      ### add RCS covariate term
       if ( base::length(rcs_df) > 1 ) {
         formula_rcs <- c( formula_rcs, base::paste( 'rms::rcs(', rcs_covariate[i],',', rcs_df[i], ')', sep = ' ' ))
       } else {
@@ -92,9 +112,11 @@ get_formula <- function(
       }
     }
     ### prepare model formula
-    model_formula <- stats::as.formula( base::paste( formula_outcome
-                                , base::paste(c(formula_covariates, formula_rcs),collapse='+') ))
+    model_formula <- stats::as.formula( base::paste( formula_outcome,
+      base::paste(c(formula_covariates, formula_rcs ),collapse='+') )
+    )
   }
+  ### if asked, return as a simple string
   if ( base::isTRUE(string) ) {
     model_formula <- base::Reduce( paste, base::deparse(model_formula))
   }
