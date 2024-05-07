@@ -7,6 +7,7 @@
 #' @param outcome: the model outcome name (dependent variable). If survival analysis ("time_var" specified) this is the event column
 #' @param covariates: vector of model covariate names
 #' @param random_covariate: the variable to be used as random effects (optional)
+#' @param random_slope: the variable to be used as random slope (optional)
 #' @param rcs_covariate: the variable to be used as RCS (optional)
 #' @param rcs_df: if rcs_covariate is specified the degrees of freedom to use for RCS transformation (optional, default: 5)
 #' @return A as.formula() object to be passed to regression models
@@ -15,6 +16,7 @@ get_formula <- function(
                   outcome,
                   covariates,
                   random_covariates = NULL,
+                  random_slope = NULL,
                   rcs_covariate = NULL,
                   rcs_df = 5,
                   time_var = NULL,
@@ -80,7 +82,12 @@ get_formula <- function(
         random_index <- base::which( covariates == random_covariates[rci] )
         covariates <- covariates[-random_index]
       }
-      random_covariate_term <- base::paste( ' ( 1 |', random_covariates[rci], ' ) ', sep = '' )
+      ### if user asked for a specific random slope use that variable instead of 1
+      if ( ! base::is.null( random_slope ) ) {
+        random_covariate_term <- base::paste( ' ( ', random_slope ,' |', random_covariates[rci], ' ) ', sep = '' )
+      } else {
+        random_covariate_term <- base::paste( ' ( 1 |', random_covariates[rci], ' ) ', sep = '' )
+      }
       random_covariates_vector <- c( random_covariates_vector, random_covariate_term )
     }
     covariates <- c( covariates, random_covariates_vector )

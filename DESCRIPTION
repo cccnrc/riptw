@@ -1,6 +1,6 @@
 Package: riptw
 Title: Perform IPTW analysis
-Version: 0.0.0.9002
+Version: 0.0.0.9003
 Authors@R:
     person("Enrico", "Cocchi", , "cocchi.e89@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7532-956X"))
